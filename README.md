@@ -5,3 +5,5 @@
 - TailwindCSS
 - DaisyUI
 - React Router
+- React Hook Form
+- React Icon
