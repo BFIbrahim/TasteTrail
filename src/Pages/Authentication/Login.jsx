@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const axiosInstance = useAxios();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -27,7 +28,8 @@ const Login = () => {
         text: "Redirecting to dashboard...",
         icon: "success"
       });
-      // navigate("/dashboard");
+      
+      navigate("/dashboard");
     },
     onError: (error) => {
       Swal.fire({

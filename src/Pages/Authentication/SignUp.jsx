@@ -3,11 +3,12 @@ import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
   const axiosInstance = useAxios();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -56,7 +57,7 @@ const SignUp = () => {
       });
       console.log("Signup successful:", data);
 
-      // navigate("/dashboard");
+      navigate("/dashboard");
     },
     onError: (error) => {
       console.error("Signup error:", error);
