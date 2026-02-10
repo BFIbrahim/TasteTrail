@@ -10,11 +10,8 @@
   name: "TasteTrail_Theme";
   default: true;
   --color-primary: #2dc653;
-  --color-secondary: #041c38;
+  --color-secondary: #c7f9cc;
   --color-accent: #f97316;
-  --neutral: #6c757d;
-  --color-base-content: #000000;
-  --color-base-100: #fdfcfb;
 }
 
 @layer base {

@@ -1,58 +1,109 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { FiMenu } from "react-icons/fi";
+import { MdRestaurantMenu, MdSpaceDashboard } from "react-icons/md";
+import { NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    console.log(user)
 
-  return (
-    <div className="drawer lg:drawer-open">
-      {/* Drawer Toggle */}
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+    return (
+        <div className="drawer lg:drawer-open bg-base-100 text-base-content">
+            <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
 
-      {/* Page Content */}
-      <div className="drawer-content flex flex-col">
-        {/* Mobile Navbar */}
-        <div className="navbar bg-base-100 shadow-md lg:hidden">
-          <div className="flex-none">
-            <label
-              htmlFor="dashboard-drawer"
-              className="btn btn-ghost text-xl"
-            >
-              <FiMenu />
-            </label>
-          </div>
-          <div className="flex-1">
-            <span className="text-lg font-semibold">Dashboard</span>
-          </div>
+            {/* CONTENT */}
+            <div className="drawer-content flex flex-col">
+                {/* Mobile Navbar */}
+                <div className="navbar bg-base-100 border-b border-neutral/30 lg:hidden">
+                    <div className="flex-none">
+                        <label
+                            htmlFor="dashboard-drawer"
+                            className="btn btn-ghost text-primary text-xl"
+                        >
+                            <FiMenu />
+                        </label>
+                    </div>
+                    <div className="flex-1">
+                        <span className="text-lg font-semibold text-primary">
+                            Dashboard
+                        </span>
+                    </div>
+                </div>
+
+                <Outlet />
+            </div>
+
+            {/* SIDEBAR */}
+            <div className="drawer-side">
+                <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
+
+                <aside className="w-80 min-h-full bg-secondary border-r border-primary/20">
+                    <div className="flex items-center gap-3 p-5 border-b border-primary/20">
+                        <div className="avatar">
+                            <div className="w-12 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
+                                <img
+                                    src={
+                                        user?.profileImage ||
+                                        "https://i.ibb.co/2kR2zq0/user.png"
+                                    }
+                                    alt="User"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="font-semibold text-accent leading-tight">
+                                {user?.name || "Guest User"}
+                            </h3>
+                            <p className="text-sm text-neutral">
+                                Dashboard User
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul className="menu p-4 w-full">
+                        <li>
+                            <NavLink
+                                to="/dashboard"
+                                className={({ isActive }) =>
+                                    `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`
+                                }
+                            >
+                                <MdSpaceDashboard />
+                                Dashboard
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                to="/dashboard/manage-recipes"
+                                className={({ isActive }) =>
+                                    `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`
+                                }
+                            >
+                                <MdRestaurantMenu />
+                                Manage Recipes
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                to="/dashboard/manage-categories"
+                                className={({ isActive }) =>
+                                    `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`
+                                }
+                            >
+                                <MdRestaurantMenu />
+                                Manage categories
+                            </NavLink>
+                        </li>
+
+                    </ul>
+                </aside>
+            </div>
         </div>
-
-        {/* Main Content */}
-        <div className="p-6">
-          <h1 className="text-2xl font-bold">
-            Welcome {user?.name || "User"}
-          </h1>
-          <p className="mt-2 text-gray-500">
-            Dashboard main content goes here
-          </p>
-        </div>
-      </div>
-
-      <div className="drawer-side">
-        <label
-          htmlFor="dashboard-drawer"
-          className="drawer-overlay"
-        ></label>
-
-        <ul className="menu bg-base-200 min-h-full w-80 p-4">
-          <li><a>Dashboard</a></li>
-          <li><a>Profile</a></li>
-          <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default DashboardLayout;
