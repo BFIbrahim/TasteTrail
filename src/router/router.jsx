@@ -5,6 +5,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageCategory from "../Pages/Dashboard/ManageCategory";
 import ManageRecipes from "../Pages/Dashboard/Admin/ManageRecipes";
 import AllRecipes from "../Pages/Dashboard/User/AllRecipes";
+import ManageReviews from "../Pages/Dashboard/Admin/ManageReviews";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "all-recipes",
         element: <AllRecipes />
+      },
+      {
+        path: "manage-reviews",
+        element: <ManageReviews />
       }
     ]
   }

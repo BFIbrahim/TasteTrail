@@ -131,6 +131,7 @@ const ManageRecipes = () => {
     } catch (err) {
       Swal.fire("Error", "Action failed.", "error");
       setImageUploading(false);
+      console.log(err)
     }
   };
 
