@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { FiMenu } from "react-icons/fi";
-import { MdCategory, MdRestaurantMenu, MdSpaceDashboard } from "react-icons/md";
+import { MdCategory, MdKitchen, MdRestaurantMenu, MdSpaceDashboard } from "react-icons/md";
 import { NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
@@ -97,6 +97,18 @@ const DashboardLayout = () => {
                             >
                                 <MdCategory />
                                 Manage categories
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                to="/dashboard/all-recipes"
+                                className={({ isActive }) =>
+                                    `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`
+                                }
+                            >
+                                <MdKitchen />
+                                All Recipes
                             </NavLink>
                         </li>
 

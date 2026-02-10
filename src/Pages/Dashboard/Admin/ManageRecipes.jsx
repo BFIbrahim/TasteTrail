@@ -144,7 +144,7 @@ const ManageRecipes = () => {
             </h2>
             <p className="text-base-content/60 font-medium">Manage your culinary collection</p>
           </div>
-          <button className="btn btn-primary btn-wide rounded-xl shadow-lg shadow-primary/20" onClick={() => setModalOpen(true)}>
+          <button className="btn btn-primary btn-wide rounded-xl shadow-lg shadow-primary/20 text-white" onClick={() => setModalOpen(true)}>
             <FaPlus /> Add New Recipe
           </button>
         </div>
@@ -258,7 +258,7 @@ const ManageRecipes = () => {
             <div className="bg-base-200/50 p-6 rounded-2xl border border-base-300">
               <div className="flex justify-between items-center mb-4">
                 <label className="label-text font-black text-primary uppercase text-xs tracking-widest">Ingredients</label>
-                <button type="button" onClick={() => append({ name: "", quantity: "" })} className="btn btn-xs btn-primary gap-1">
+                <button type="button" onClick={() => append({ name: "", quantity: "" })} className="btn btn-xs btn-primary gap-1 text-white">
                   <FaPlus /> Add
                 </button>
               </div>
@@ -304,7 +304,7 @@ const ManageRecipes = () => {
 
           <div className="bg-base-100 p-6 flex gap-3 border-t border-base-200 shrink-0 shadow-md z-10">
             <button type="button" onClick={closeModal} className="btn btn-ghost flex-1 rounded-xl uppercase font-bold text-xs tracking-widest">Discard</button>
-            <button type="submit" onClick={handleSubmit(onSubmit)} disabled={imageUploading} className="btn btn-primary flex-[2] rounded-xl shadow-lg shadow-primary/20 uppercase font-bold text-xs tracking-widest">
+            <button type="submit" onClick={handleSubmit(onSubmit)} disabled={imageUploading} className="btn btn-primary flex-[2] rounded-xl shadow-lg shadow-primary/20 uppercase font-bold text-xs tracking-widest text-white">
               {imageUploading ? <span className="loading loading-spinner"></span> : editingRecipeId ? "Apply Changes" : "Publish Recipe"}
             </button>
           </div>
