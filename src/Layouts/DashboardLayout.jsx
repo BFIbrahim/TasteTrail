@@ -78,7 +78,7 @@ const DashboardLayout = () => {
 
                         <li>
                             <NavLink
-                                to="/dashboard/manage-recipes"
+                                to="/dashboard/manage-recipe"
                                 className={({ isActive }) =>
                                     `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`
                                 }
