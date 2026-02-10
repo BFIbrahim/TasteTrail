@@ -3,16 +3,15 @@ import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthContext";
+import { useContext } from "react";
 
 const Login = () => {
   const axiosInstance = useAxios();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { loginUser } = useContext(AuthContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const loginMutation = useMutation({
     mutationFn: async ({ email, password }) => {
@@ -20,24 +19,23 @@ const Login = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      localStorage.setItem("authToken", data.token);
-      localStorage.setItem("userInfo", JSON.stringify(data.user));
+      loginUser(data.user, data.token);
 
       Swal.fire({
         title: "Login Successfull",
         text: "Redirecting to dashboard...",
         icon: "success"
       });
-      
+
       navigate("/dashboard");
     },
     onError: (error) => {
       Swal.fire({
-        title: "Opps",
+        title: "Oops",
         text: "Login failed",
         icon: "error"
       });
-      console.log(error)
+      console.log(error);
     },
   });
 
@@ -61,16 +59,6 @@ const Login = () => {
           <p className="mb-2 opacity-90 leading-relaxed">
             TasteTrail helps you discover recipes, plan meals, track cooking, and get personalized recommendations.
           </p>
-          <p className="text-base opacity-80 leading-relaxed">
-            Improve your everyday cooking decisions with smart insights.
-          </p>
-
-          <div className="flex mt-6 space-x-4 text-xl">
-            <a href="#" className="hover:text-secondary"><i className="fab fa-facebook"></i></a>
-            <a href="#" className="hover:text-secondary"><i className="fab fa-twitter"></i></a>
-            <a href="#" className="hover:text-secondary"><i className="fab fa-instagram"></i></a>
-            <a href="#" className="hover:text-secondary"><i className="fab fa-youtube"></i></a>
-          </div>
         </div>
 
         <div className="lg:w-1/2 p-10 flex flex-col justify-center">
@@ -102,13 +90,6 @@ const Login = () => {
               {errors.password && (
                 <p className="text-error text-sm mt-1">{errors.password.message}</p>
               )}
-            </div>
-
-            <div className="flex items-center justify-between">
-              <label className="label cursor-pointer">
-                <input type="checkbox" className="checkbox checkbox-primary" />
-                <span className="label-text ml-2 text-white">Remember Me</span>
-              </label>
             </div>
 
             <button

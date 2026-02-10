@@ -141,7 +141,7 @@ const ManageCategory = () => {
 
                     <button
                         type="submit"
-                        className="btn btn-primary mt-2"
+                        className="btn btn-primary mt-2 text-white"
                         disabled={addCategoryMutation.isLoading}
                     >
                         {addCategoryMutation.isLoading ? "Adding..." : "Add Category"}

@@ -1,20 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SignUp = () => {
   const axiosInstance = useAxios();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { loginUser } = useContext(AuthContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -26,10 +24,7 @@ const SignUp = () => {
     const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
     const response = await fetch(
       `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`,
-      {
-        method: "POST",
-        body: formData,
-      }
+      { method: "POST", body: formData }
     );
     const data = await response.json();
     return data.data.url;
@@ -50,18 +45,23 @@ const SignUp = () => {
       return res.data;
     },
     onSuccess: (data) => {
+      loginUser(data.user, data.token);
+
       Swal.fire({
-        title: "Registration Successfull",
+        title: "Registration Successful",
         text: "Redirecting to dashboard...",
         icon: "success"
       });
-      console.log("Signup successful:", data);
 
       navigate("/dashboard");
     },
     onError: (error) => {
       console.error("Signup error:", error);
-      alert(error?.response?.data?.message || "Signup failed");
+      Swal.fire({
+        title: "Oops!",
+        text: error?.response?.data?.message || "Signup failed",
+        icon: "error"
+      });
     },
   });
 
