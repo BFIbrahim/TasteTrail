@@ -45,7 +45,7 @@ const SignUp = () => {
         profileImage: imageUrl,
       };
 
-      const res = await axiosInstance.post("/api/auth/register", payload);
+      const res = await axiosInstance.post("/register", payload);
       return res.data;
     },
     onSuccess: (data) => {
