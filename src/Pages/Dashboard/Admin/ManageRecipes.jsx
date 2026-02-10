@@ -141,7 +141,7 @@ const ManageRecipes = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-base-100 p-6 rounded-2xl shadow-sm border border-base-300">
           <div>
             <h2 className="text-3xl font-black text-primary flex items-center gap-2">
-              <FaUtensils className="text-2xl" /> Manage Recipes
+              <FaUtensils className="text-2xl" /> <span className="text-black">Manage</span> Recipes
             </h2>
             <p className="text-base-content/60 font-medium">Manage your culinary collection</p>
           </div>

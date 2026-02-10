@@ -6,6 +6,7 @@ import ManageCategory from "../Pages/Dashboard/ManageCategory";
 import ManageRecipes from "../Pages/Dashboard/Admin/ManageRecipes";
 import AllRecipes from "../Pages/Dashboard/User/AllRecipes";
 import ManageReviews from "../Pages/Dashboard/Admin/ManageReviews";
+import MealPlanner from "../Pages/Dashboard/User/MealPlanner";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-reviews",
         element: <ManageReviews />
+      },
+      {
+        path: "meal-planner",
+        element: <MealPlanner />
       }
     ]
   }
