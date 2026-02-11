@@ -204,7 +204,7 @@ const ManageRecipes = () => {
         <div className="modal-box max-w-4xl p-0 rounded-2xl overflow-hidden border border-base-300 flex flex-col max-h-[90vh]">
           
           <div className="bg-primary p-6 text-primary-content flex justify-between items-center shrink-0 shadow-md z-10">
-            <h3 className="text-2xl font-bold flex items-center gap-2">
+            <h3 className="text-2xl font-bold flex items-center gap-2 text-white">
               {editingRecipeId ? <FaEdit /> : <FaPlus />} 
               {editingRecipeId ? "Update Recipe" : "New Creation"}
             </h3>
@@ -268,7 +268,7 @@ const ManageRecipes = () => {
                   <div key={item.id} className="flex gap-2">
                     <input placeholder="Item Name" {...register(`ingredients.${index}.name`)} className="input input-bordered w-2/3 input-sm focus:border-primary" />
                     <input placeholder="Qty" {...register(`ingredients.${index}.quantity`)} className="input input-bordered w-1/3 input-sm focus:border-primary" />
-                    <button type="button" onClick={() => remove(index)} className="btn btn-sm btn-square btn-error btn-outline border-none text-white hover:bg-error">✕</button>
+                    <button type="button" onClick={() => remove(index)} className="btn btn-sm btn-square btn-error btn-outline border-none bg-error text-white hover:bg-error">✕</button>
                   </div>
                 ))}
               </div>

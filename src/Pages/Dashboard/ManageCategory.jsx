@@ -108,7 +108,7 @@ const ManageCategory = () => {
     return (
         <div className="p-6 md:p-10 bg-[#F8FAFC] min-h-screen">
             <header className="mb-10">
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight">Manage Categories</h1>
+                <h1 className="text-3xl font-black text-slate-900 tracking-tight">Manage <span className="text-primary">Categories</span></h1>
                 <p className="text-slate-500 font-medium">Organize and structure your recipe collections.</p>
             </header>
 
