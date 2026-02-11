@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 import Swal from "sweetalert2";
 import { FaTrashAlt, FaUserShield, FaSearch, FaUsers, FaUserTag, FaEnvelope, FaCalendarDay, FaExclamationTriangle } from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const UserManagement = () => {
     const axiosSecure = useAxiosSecure();

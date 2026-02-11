@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import {
     FaClock, FaFire, FaStar,

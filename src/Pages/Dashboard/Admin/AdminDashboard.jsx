@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+
 import {
     FaUsers, FaUtensils, FaStar, FaBookmark,
     FaDownload, FaHistory
@@ -9,6 +9,7 @@ import {
     ResponsiveContainer, Tooltip,
     AreaChart, Area, XAxis, YAxis, CartesianGrid
 } from 'recharts';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const AdminDashboard = () => {
     const axiosSecure = useAxiosSecure();

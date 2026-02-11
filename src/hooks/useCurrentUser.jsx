@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
 
+
 export const useCurrentUser = () => {
   const axiosSecure = useAxiosSecure();
   const token = localStorage.getItem("authToken");

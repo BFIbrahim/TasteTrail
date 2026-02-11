@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { MdDelete, MdCloudUpload } from "react-icons/md";
 import { HiOutlineFolderAdd } from "react-icons/hi";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const ManageCategory = () => {

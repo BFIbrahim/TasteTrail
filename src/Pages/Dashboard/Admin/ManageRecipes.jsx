@@ -7,7 +7,8 @@ import {
   FaPlus, FaEdit, FaTrash, FaUtensils, 
   FaClock, FaFire, FaGlobe, FaListUl, FaImage, FaTimes 
 } from "react-icons/fa";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 
 const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
 
