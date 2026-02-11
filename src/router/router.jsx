@@ -9,10 +9,11 @@ import ManageReviews from "../Pages/Dashboard/Admin/ManageReviews";
 import MealPlanner from "../Pages/Dashboard/User/MealPlanner";
 import UserManagement from "../Pages/Dashboard/Admin/UserManagement";
 import PrivetRoute from "../routes/PrivetRoute";
-import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
 import PersonalCookbook from "../Pages/Dashboard/User/PersonalCookbook";
+import DashboardIndex from "../Components/DashboardIndex";
 
 export const router = createBrowserRouter([
+
   {
     path: "/",
     element: <Login />
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <UserDashboard />
+        element: <DashboardIndex />
       },
       {
         path: "manage-categories",

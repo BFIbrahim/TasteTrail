@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa';
 import { AuthContext } from "../../../Context/AuthContext";
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const UserDashboard = () => {
     const axiosSecure = useAxiosSecure();
@@ -134,7 +135,7 @@ const UserDashboard = () => {
                         </div>
                         <h2 className="text-3xl font-black mb-2">Ready to Cook?</h2>
                         <p className="opacity-70 mb-8 text-sm leading-relaxed">You have {meals.length} meals planned for this week. Keep up the healthy momentum!</p>
-                        <button className="btn btn-primary border-none text-white rounded-2xl px-10 h-14 shadow-lg shadow-primary/20">Open Planner</button>
+                        <Link to="/dashboard/meal-planner" className="btn btn-primary border-none text-white rounded-2xl px-10 h-14 shadow-lg shadow-primary/20">Open Planner</Link>
                     </div>
                     <div className="absolute -bottom-10 -right-10 opacity-10 rotate-12">
                         <FaUtensils size={240} />

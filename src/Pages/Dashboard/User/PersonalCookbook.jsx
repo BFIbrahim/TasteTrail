@@ -115,7 +115,7 @@ const PersonalCookbook = () => {
                             <FaUtensils className="text-slate-200 text-6xl mx-auto mb-6" />
                             <h2 className="text-3xl font-black text-slate-800">Your cookbook is empty</h2>
                             <p className="py-6 text-slate-500">Start exploring and save the ones you love!</p>
-                            <Link to="/recipes" className="btn btn-primary px-8 rounded-2xl text-white font-bold gap-2">
+                            <Link to="/dashboard/all-recipes" className="btn btn-primary px-8 rounded-2xl text-white font-bold gap-2">
                                 Browse All Recipes <FaChevronRight size={12} />
                             </Link>
                         </div>
