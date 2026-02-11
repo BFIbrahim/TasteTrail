@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const DashboardLayout = () => {
     const { user, logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    console.log(user)
 
     const isAdmin = user?.role === 'admin';
 

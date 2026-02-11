@@ -1,21 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { 
+import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
-import { 
-    FaFire, FaUtensils, FaStar, FaArrowRight, 
+import {
+    FaFire, FaUtensils, FaStar, FaArrowRight,
     FaTimes, FaPaperPlane, FaBookmark, FaHashtag, FaBolt
 } from 'react-icons/fa';
 import { AuthContext } from "../../../Context/AuthContext";
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const UserDashboard = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
-    
+
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [userRating, setUserRating] = useState(5);
     const [comment, setComment] = useState("");
@@ -24,7 +24,10 @@ const UserDashboard = () => {
         queryKey: ['meal-planner-stats', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/meal-planner?email=${user?.email}`);
-            return res.data;
+            // Logic to ensure an array is returned
+            if (Array.isArray(res.data)) return res.data;
+            if (res.data && Array.isArray(res.data.meals)) return res.data.meals;
+            return []; // Fallback to empty array
         },
         enabled: !!user?.email
     });
@@ -33,7 +36,8 @@ const UserDashboard = () => {
         queryKey: ['recommended-recipes'],
         queryFn: async () => {
             const res = await axiosSecure.get('/recipes/recommended');
-            return res.data;
+            // Ensure we always return an array even if the structure is nested
+            return Array.isArray(res.data) ? res.data : (res.data.recipes || []);
         }
     });
 
@@ -96,7 +100,7 @@ const UserDashboard = () => {
 
     return (
         <div className="p-6 md:p-10 bg-[#F8FAFC] min-h-screen space-y-12">
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 card bg-white shadow-2xl rounded-[2.5rem] p-8 border border-white relative overflow-hidden">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 relative z-10">
@@ -108,7 +112,7 @@ const UserDashboard = () => {
                             </div>
                         </div>
                         <div className="bg-slate-50 border border-slate-100 rounded-3xl px-6 py-3 flex items-center gap-3">
-                            <div className="p-2 bg-orange-500 rounded-lg text-white"><FaBolt size={14}/></div>
+                            <div className="p-2 bg-orange-500 rounded-lg text-white"><FaBolt size={14} /></div>
                             <div>
                                 <p className="text-[10px] font-black text-slate-400 uppercase leading-none">Total Calories</p>
                                 <p className="text-xl font-black text-slate-800">{totalWeeklyCalories.toLocaleString()} <span className="text-xs font-medium text-slate-400">kcal</span></p>
@@ -119,9 +123,9 @@ const UserDashboard = () => {
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={caloriesData}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                                <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{borderRadius: '15px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)'}} />
+                                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                                <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '15px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
                                 <Bar dataKey="calories" fill="#2dc653" radius={[10, 10, 0, 0]} barSize={40} />
                             </BarChart>
                         </ResponsiveContainer>
@@ -150,27 +154,29 @@ const UserDashboard = () => {
                         <p className="text-slate-400 text-sm font-medium">Curated dishes based on your preferences</p>
                     </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {recommended.map((recipe) => (
-                        <div key={recipe._id} className="group bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                            <div className="relative h-56 overflow-hidden">
-                                <img src={recipe.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
-                                <div className="absolute top-4 left-4">
-                                    <span className="badge badge-accent text-white font-bold py-3 px-4 border-none shadow-lg gap-1.5">
-                                        <FaStar className="text-[10px]" /> {recipe.rating || "NEW"}
-                                    </span>
+                    {Array.isArray(recommended) && recommended.map((recipe) => (
+                        <div key={recipe._id} className="group ...">
+                            <div key={recipe._id} className="group bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                                <div className="relative h-56 overflow-hidden">
+                                    <img src={recipe.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
+                                    <div className="absolute top-4 left-4">
+                                        <span className="badge badge-accent text-white font-bold py-3 px-4 border-none shadow-lg gap-1.5">
+                                            <FaStar className="text-[10px]" /> {recipe.rating || "NEW"}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="p-6">
-                                <span className="text-[10px] font-black text-primary uppercase tracking-widest mb-1 block">{recipe.category}</span>
-                                <h3 className="font-black text-slate-800 mb-6 line-clamp-1 text-lg">{recipe.title}</h3>
-                                <button 
-                                    onClick={() => setSelectedRecipe(recipe)}
-                                    className="btn btn-primary btn-block rounded-2xl text-white font-bold shadow-md shadow-primary/10 border-none h-12"
-                                >
-                                    Details <FaArrowRight size={12} className="ml-1" />
-                                </button>
+                                <div className="p-6">
+                                    <span className="text-[10px] font-black text-primary uppercase tracking-widest mb-1 block">{recipe.category}</span>
+                                    <h3 className="font-black text-slate-800 mb-6 line-clamp-1 text-lg">{recipe.title}</h3>
+                                    <button
+                                        onClick={() => setSelectedRecipe(recipe)}
+                                        className="btn btn-primary btn-block rounded-2xl text-white font-bold shadow-md shadow-primary/10 border-none h-12"
+                                    >
+                                        Details <FaArrowRight size={12} className="ml-1" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -208,7 +214,7 @@ const UserDashboard = () => {
                             </div>
 
                             <div className="mb-8">
-                                <h4 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2"><FaHashtag className="text-primary" size={14}/> Reviews</h4>
+                                <h4 className="text-lg font-black text-slate-800 mb-4 flex items-center gap-2"><FaHashtag className="text-primary" size={14} /> Reviews</h4>
                                 <div className="space-y-4 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                                     {reviewData.reviews.length > 0 ? reviewData.reviews.map((rev) => (
                                         <div key={rev._id} className="p-4 bg-slate-50 rounded-2xl flex gap-4 border border-slate-100">
@@ -216,7 +222,7 @@ const UserDashboard = () => {
                                             <div className="flex-1">
                                                 <div className="flex justify-between text-xs font-black mb-1">
                                                     <span className="text-slate-700">{rev.userName}</span>
-                                                    <span className="text-orange-500 flex items-center gap-1 font-black bg-orange-50 px-2 py-0.5 rounded-lg"><FaStar size={10}/> {rev.rating}</span>
+                                                    <span className="text-orange-500 flex items-center gap-1 font-black bg-orange-50 px-2 py-0.5 rounded-lg"><FaStar size={10} /> {rev.rating}</span>
                                                 </div>
                                                 <p className="text-xs text-slate-500 leading-relaxed italic">"{rev.comment}"</p>
                                             </div>

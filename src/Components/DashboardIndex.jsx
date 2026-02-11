@@ -3,7 +3,6 @@ import { AuthContext } from "../Context/AuthContext";
 import AdminDashboard from "../Pages/Dashboard/Admin/AdminDashboard";
 import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
 
-// components/DashboardIndex.jsx
 const DashboardIndex = () => {
   const { user } = useContext(AuthContext)
   const role = user?.role;
