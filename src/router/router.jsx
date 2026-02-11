@@ -11,6 +11,8 @@ import UserManagement from "../Pages/Dashboard/Admin/UserManagement";
 import PrivetRoute from "../routes/PrivetRoute";
 import PersonalCookbook from "../Pages/Dashboard/User/PersonalCookbook";
 import DashboardIndex from "../Components/DashboardIndex";
+import AdminRoute from "../routes/AdminRoutes";
+import Forbidden from "../Components/Forbidden";
 
 export const router = createBrowserRouter([
 
@@ -23,6 +25,10 @@ export const router = createBrowserRouter([
     element: <SignUp />
   },
   {
+    path: '/forbidden',
+    element: <Forbidden />
+  },
+  {
     path: "/dashboard",
     element: <PrivetRoute><DashboardLayout /></PrivetRoute>,
     children: [
@@ -32,11 +38,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-categories",
-        element: <ManageCategory />
+        element: <AdminRoute><ManageCategory /></AdminRoute>
       },
       {
         path: "manage-recipe",
-        element: <ManageRecipes />
+        element: <AdminRoute><ManageRecipes /></AdminRoute>
       },
       {
         path: "all-recipes",
@@ -44,7 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-reviews",
-        element: <ManageReviews />
+        element: <AdminRoute><ManageReviews /></AdminRoute>
       },
       {
         path: "meal-planner",
@@ -52,7 +58,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'manage-users',
-        element: <UserManagement />
+        element: <AdminRoute><UserManagement /></AdminRoute>
       },
       {
         path: 'personal-cookbook',

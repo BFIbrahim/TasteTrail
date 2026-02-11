@@ -1,17 +1,25 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Login = () => {
   const axiosInstance = useAxios();
   const navigate = useNavigate();
-  const { loginUser } = useContext(AuthContext);
+  const location = useLocation();
+  const { loginUser, user, loading } = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+
+  useEffect(() => {
+    if (!loading && user) {
+      const from = location.state?.from || "/dashboard";
+      navigate(from, { replace: true });
+    }
+  }, [user, loading, navigate, location]);
 
   const loginMutation = useMutation({
     mutationFn: async ({ email, password }) => {
@@ -22,9 +30,11 @@ const Login = () => {
       loginUser(data.user, data.token);
 
       Swal.fire({
-        title: "Login Successfull",
+        title: "Login Successful",
         text: "Redirecting to dashboard...",
-        icon: "success"
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
       });
 
       navigate("/dashboard");
@@ -32,16 +42,23 @@ const Login = () => {
     onError: (error) => {
       Swal.fire({
         title: "Oops",
-        text: "Login failed",
+        text: error?.response?.data?.message || "Login failed",
         icon: "error"
       });
-      console.log(error);
     },
   });
 
   const onSubmit = (formValues) => {
     loginMutation.mutate(formValues);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -69,7 +86,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email Address"
-                className="input input-bordered input-primary w-full"
+                className="input input-bordered input-primary w-full text-white"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -81,7 +98,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
-                className="input input-bordered input-primary w-full"
+                className="input input-bordered input-primary w-full text-white"
                 {...register("password", {
                   required: "Password is required",
                   minLength: { value: 6, message: "Minimum 6 characters" },
@@ -95,9 +112,9 @@ const Login = () => {
             <button
               type="submit"
               className="btn btn-primary w-full text-white"
-              disabled={loginMutation.isLoading}
+              disabled={loginMutation.isPending}
             >
-              {loginMutation.isLoading ? "Signing in..." : "Sign in now"}
+              {loginMutation.isPending ? "Signing in..." : "Sign in now"}
             </button>
           </form>
 
