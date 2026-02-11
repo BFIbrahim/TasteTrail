@@ -10,6 +10,8 @@ const DashboardLayout = () => {
     const { user, logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const isAdmin = user?.role === 'admin';
+
     const handleLogout = () => {
         Swal.fire({
             title: "Sign Out?",
@@ -36,6 +38,11 @@ const DashboardLayout = () => {
         });
     };
 
+    const navLinkStyles = ({ isActive }) => 
+        `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${
+            isActive ? "bg-primary/40 text-black" : "text-gray-700"
+        }`;
+
     return (
         <div className="drawer lg:drawer-open bg-base-100 text-base-content">
             <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -54,7 +61,7 @@ const DashboardLayout = () => {
                 <Outlet />
             </div>
 
-            <div className="drawer-side">
+            <div className="drawer-side z-50">
                 <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
 
                 <aside className="w-80 min-h-full bg-secondary border-r border-primary/20 flex flex-col">
@@ -66,53 +73,64 @@ const DashboardLayout = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-semibold text-primary leading-tight">{user?.name || "Guest User"}</h3>
-                            <p className="text-sm text-neutral">Dashboard User</p>
+                            <h3 className="font-semibold text-primary leading-tight uppercase tracking-tight">
+                                {user?.name || "Guest User"}
+                            </h3>
+                            <p className="text-xs text-neutral font-bold opacity-70">
+                                {isAdmin ? "ADMIN PORTAL" : "USER PANEL"}
+                            </p>
                         </div>
                     </div>
 
                     <ul className="menu p-4 w-full flex-1 gap-1">
                         <li>
-                            <NavLink to="/dashboard" end className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
+                            <NavLink to="/dashboard" end className={navLinkStyles}>
                                 <MdSpaceDashboard /> Dashboard
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/dashboard/manage-recipe" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <MdRestaurantMenu /> Manage Recipes
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/manage-categories" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <MdCategory /> Manage Categories
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/all-recipes" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <MdKitchen /> All Recipes
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/manage-reviews" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <MdOutlineStar /> Manage Reviews
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/meal-planner" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <MdCalendarMonth /> Meal Planner
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/manage-users" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <FaUsers /> Manage Users
-                            </NavLink>
-                        </li>
 
-                        <li>
-                            <NavLink to="/dashboard/personal-cookbook" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
-                                <FaBook /> Personal Cookbook
-                            </NavLink>
-                        </li>
+                        {isAdmin ? (
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/manage-recipe" className={navLinkStyles}>
+                                        <MdRestaurantMenu /> Manage Recipes
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/manage-categories" className={navLinkStyles}>
+                                        <MdCategory /> Manage Categories
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/manage-reviews" className={navLinkStyles}>
+                                        <MdOutlineStar /> Manage Reviews
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/manage-users" className={navLinkStyles}>
+                                        <FaUsers /> Manage Users
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/all-recipes" className={navLinkStyles}>
+                                        <MdKitchen /> All Recipes
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/meal-planner" className={navLinkStyles}>
+                                        <MdCalendarMonth /> Meal Planner
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/personal-cookbook" className={navLinkStyles}>
+                                        <FaBook /> Personal Cookbook
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
 
                     <div className="p-4 border-t border-primary/10">
