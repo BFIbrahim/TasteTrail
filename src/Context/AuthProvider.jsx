@@ -25,14 +25,17 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("userInfo");
     localStorage.removeItem("authToken");
+
+    // Return a resolved promise so components can wait for it
+    return Promise.resolve();
   };
 
   const authInfo = {
     user,
     loading: isLoading,
     refetchUser: refetch,
-    loginUser,  
-    logoutUser, 
+    loginUser,
+    logoutUser,
   };
 
   return (
