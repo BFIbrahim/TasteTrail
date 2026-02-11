@@ -34,7 +34,7 @@ const ManageRecipes = () => {
     },
   });
 
-  const { register, handleSubmit, control, reset, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, reset, watch } = useForm();
   const { fields, append, remove } = useFieldArray({ control, name: "ingredients" });
 
   const imageFile = watch("image");

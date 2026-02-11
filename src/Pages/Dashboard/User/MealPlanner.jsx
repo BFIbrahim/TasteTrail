@@ -24,7 +24,7 @@ const MealPlanner = () => {
         enabled: !!user?.email
     });
 
-    const { data: allRecipes = [], isLoading: recipesLoading } = useQuery({
+    const { data: allRecipes = []} = useQuery({
         queryKey: ["recipes-list"],
         queryFn: async () => {
             const res = await axiosSecure.get("/recipes");
