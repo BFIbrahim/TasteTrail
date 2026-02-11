@@ -171,17 +171,16 @@ const SignUp = () => {
 
             <button
               type="submit"
-              className={`btn btn-primary w-full text-white flex items-center justify-center gap-2 transition-all duration-300 ${signupMutation.isPending ? "opacity-70 cursor-not-allowed" : ""
-                }`}
+              className="btn btn-primary w-full text-white"
               disabled={signupMutation.isPending}
             >
               {signupMutation.isPending ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-                  Creating Account...
+                  Signing up...
                 </>
               ) : (
-                "Sign Up"
+                "Sign up now"
               )}
             </button>
           </form>
