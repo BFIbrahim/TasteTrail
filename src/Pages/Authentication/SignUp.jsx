@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../Hooks/useAxios";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthContext";
