@@ -8,6 +8,8 @@ import AllRecipes from "../Pages/Dashboard/User/AllRecipes";
 import ManageReviews from "../Pages/Dashboard/Admin/ManageReviews";
 import MealPlanner from "../Pages/Dashboard/User/MealPlanner";
 import UserManagement from "../Pages/Dashboard/Admin/UserManagement";
+import PrivetRoute from "../routes/PrivetRoute";
+import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +22,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <PrivetRoute><DashboardLayout /></PrivetRoute>,
     children: [
+      {
+        index: true,
+        element: <UserDashboard />
+      },
       {
         path: "manage-categories",
         element: <ManageCategory />

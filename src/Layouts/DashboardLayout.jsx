@@ -66,7 +66,7 @@ const DashboardLayout = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-semibold text-accent leading-tight">{user?.name || "Guest User"}</h3>
+                            <h3 className="font-semibold text-primary leading-tight">{user?.name || "Guest User"}</h3>
                             <p className="text-sm text-neutral">Dashboard User</p>
                         </div>
                     </div>
