@@ -3,7 +3,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { FiMenu } from "react-icons/fi";
 import { MdCalendarMonth, MdCategory, MdKitchen, MdOutlineStar, MdRestaurantMenu, MdSpaceDashboard, MdLogout } from "react-icons/md";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { FaUsers } from "react-icons/fa";
+import { FaBook, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
@@ -105,6 +105,12 @@ const DashboardLayout = () => {
                         <li>
                             <NavLink to="/dashboard/manage-users" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
                                 <FaUsers /> Manage Users
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink to="/dashboard/personal-cookbook" className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-accent/40 hover:text-black ${isActive ? "bg-primary/40 text-black" : "text-gray-700"}`}>
+                                <FaBook /> Personal Cookbook
                             </NavLink>
                         </li>
                     </ul>

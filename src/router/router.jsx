@@ -10,6 +10,7 @@ import MealPlanner from "../Pages/Dashboard/User/MealPlanner";
 import UserManagement from "../Pages/Dashboard/Admin/UserManagement";
 import PrivetRoute from "../routes/PrivetRoute";
 import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
+import PersonalCookbook from "../Pages/Dashboard/User/PersonalCookbook";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: 'manage-users',
         element: <UserManagement />
+      },
+      {
+        path: 'personal-cookbook',
+        element: <PersonalCookbook />
       }
     ]
   }
